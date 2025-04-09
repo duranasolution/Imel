@@ -1,0 +1,13 @@
+﻿
+# Ignoriši Visual Studio fajlove
+.vs/
+*.user
+*.suo
+
+# Ignoriši build foldere
+bin/
+obj/
+
+# Ignoriši ostalo
+*.log
+*.DS_Store
