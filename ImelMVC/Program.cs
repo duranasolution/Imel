@@ -12,7 +12,12 @@ namespace ImelMVC
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllersWithViews();
 
+
+            builder.Services.AddTransient<TokenHandler>();
             builder.Services.AddTransient<Methods>();
+
+            builder.Services.AddHttpClient("ApiClient")
+                            .AddHttpMessageHandler<TokenHandler>();
 
             builder.Services.AddHttpClient();
 

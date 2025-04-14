@@ -60,7 +60,7 @@ namespace ImelMVC.Controllers
                     HttpContext.Session.SetString("surname", surnameClaim);
                     HttpContext.Session.SetString("name", nameClaim);
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

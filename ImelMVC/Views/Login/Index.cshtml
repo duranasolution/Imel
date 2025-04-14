@@ -3,6 +3,8 @@
 *@
 
 
+
+
 @if (Context.Session.GetString("name") == null)
 {
     <div class="container-fluid d-flex justify-content-center align-items-center h-100">
@@ -27,7 +29,5 @@
 }
 else
 {
-    <h1>Wellcome @Context.Session.GetString("name")  </h1>
+    <h1>You are already loged in @Context.Session.GetString("name")!  </h1>
 }
-
-

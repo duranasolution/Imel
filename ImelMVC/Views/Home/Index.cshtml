@@ -3,4 +3,29 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+@if (Context.Session.GetString("name") == null)
+{
+    <div class="container-fluid d-flex justify-content-center align-items-center h-100">
+        <form asp-action="Login" asp-controller="Login" method="post" class="h-100">
+            <div class="mb-3">
+                <input type="email" name="email" value="" placeholder="Email" />
+            </div>
+            <div class="mb-3">
+                <input type="password" name="password" value="" placeholder="Password" />
+            </div>
+            <div>
+                <button class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+    }
+}
+else
+{
+    <h1>Wellcome @Context.Session.GetString("name")  </h1>
+}

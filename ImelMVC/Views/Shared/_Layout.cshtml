@@ -23,20 +23,27 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        @if (Context.Session.GetString("role") == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                            </li>
+                            
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>
-                <div>
+                <div class="px-4">
                     @if (Context.Session.GetString("name") != null)
                     {
                         <span>@Context.Session.GetString("surname").ToUpper(),@Context.Session.GetString("name")</span>
-                        <a asp-action="Logout" asp-controller="Login">Logout</a>
+                        <a class="btn btn-danger" asp-action="Logout" asp-controller="Login">Logout</a>
                     }
                     else
                     {
-                        <a asp-action="Index" asp-controller="Login" >Login</a>
+                        <a class="btn btn-primary" asp-action="Index" asp-controller="Login" >Login</a>
                     }
                 </div>
             </div>

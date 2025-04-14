@@ -1,0 +1,37 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "Create or Edit User";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Add" asp-controller="User" method="post">
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Surname">Surname</label>
+        <input asp-for="Surname" class="form-control" />
+        <span asp-validation-for="Surname" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="HashedPassword">Password</label>
+        <input type="password" asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" name="CreatedAt" value="@DateTime.Now" />
+
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+</form>

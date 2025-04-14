@@ -22,7 +22,7 @@ namespace ImelAPI
             builder.Services.AddOpenApi();
 
             builder.Services.AddMemoryCache();
-            builder.Services.AddScoped<LoginAttemptService>(); 
+            builder.Services.AddSingleton<LoginAttemptService>(); 
             builder.Services.AddControllers();
 
             builder.Services.AddCors(options =>
