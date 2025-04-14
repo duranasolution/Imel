@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BCrypt.Net;
 using ImelAPI.Data;
-using ImelAPI.DTOs;
+using ImelMVC.DTOs;
 
 namespace ImelAPI.Controllers
 {
@@ -19,7 +19,7 @@ namespace ImelAPI.Controllers
             _context = context;
         }
 
-        [HttpPost]
+        [HttpPost("Register")]
         public IActionResult Register([FromBody] RegistrationDto request)
         {
             if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
@@ -35,8 +35,11 @@ namespace ImelAPI.Controllers
                 Surname = request.Surname,
                 HashedPassword = hashedPassword,
                 Email = request.Email,
-                Role = "User",
-                CreatedAt = DateTime.Now
+                Role = request.Role,
+                Status = request.Status,
+                CreatedAt = DateTime.Now,
+                VersionNum = request.VersionNum,
+                isDeleted = request.isDeleted
             };
 
             _context.Users.Add(user);

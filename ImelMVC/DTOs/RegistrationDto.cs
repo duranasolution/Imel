@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ImelMVC.Models
+namespace ImelMVC.DTOs
 {
-    public class User
+    public class RegistrationDto
     {
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "Ime je obavezno.")]
         [StringLength(50, ErrorMessage = "Ime ne može imati više od 50 karaktera.")]
         public string Name { get; set; }
@@ -17,6 +15,9 @@ namespace ImelMVC.Models
         [Required(ErrorMessage = "Lozinka je obavezna.")]
         [StringLength(100, MinimumLength = 6, ErrorMessage = "Lozinka mora imati najmanje 6 karaktera.")]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "Potvrda je obavezna.")]
+        public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Email je obavezan.")]
         [EmailAddress(ErrorMessage = "Neispravan format email adrese.")]

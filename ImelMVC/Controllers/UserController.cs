@@ -57,13 +57,11 @@ namespace ImelMVC.Controllers
                 var response = await _client.PostAsync(_config.GetValue<string>("Api:BaseApi") + "user/add", content);
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Data sent successfully!");
-                    return View("Index");
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    Console.WriteLine("Error: " + response.StatusCode);
-                    return View();
+                    return RedirectToAction("Index");
                 }
 
             }

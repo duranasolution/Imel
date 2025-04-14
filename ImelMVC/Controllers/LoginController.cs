@@ -1,4 +1,5 @@
-﻿using ImelMVC.Models;
+﻿using ImelMVC.DTOs;
+using ImelMVC.Models;
 using ImelMVC.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -79,7 +80,7 @@ namespace ImelMVC.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

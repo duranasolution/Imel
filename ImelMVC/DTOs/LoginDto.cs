@@ -1,4 +1,4 @@
-﻿namespace ImelMVC.Models
+﻿namespace ImelMVC.DTOs
 {
     public class LoginDto
     {

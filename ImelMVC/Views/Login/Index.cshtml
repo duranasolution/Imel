@@ -10,10 +10,10 @@
     <div class="container-fluid d-flex justify-content-center align-items-center h-100">
         <form asp-action="Login" asp-controller="Login" method="post" class="h-100">
             <div class="mb-3">
-                <input type="email" name="email" value="" placeholder="Email" />
+                <input type="email" name="email" value="" placeholder="Email" required/>
             </div>
             <div class="mb-3">
-                <input type="password" name="password" value="" placeholder="Password" />
+                <input type="password" name="password" value="" placeholder="Password" required />
             </div>
             <div>
                 <button class="btn btn-primary">Login</button>
@@ -30,4 +30,9 @@
 else
 {
     <h1>You are already loged in @Context.Session.GetString("name")!  </h1>
+}
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
