@@ -120,9 +120,6 @@ namespace ImelMVC.Controllers
                     return RedirectToAction("Index", "User");
                 }
             }
-
-
-
             return View();
         }
     }
