@@ -39,7 +39,7 @@ namespace ImelMVC.Controllers
 
 
         [HttpGet]
-        public  IActionResult Add()
+        public IActionResult Add()
         {
             return View();
         }
@@ -119,6 +119,109 @@ namespace ImelMVC.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ShowAllUsers()
+        {
+            var response = await _client.GetAsync(_config.GetValue<string>("Api:BaseApi") + "user/GetAllUsers");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var users = JsonConvert.DeserializeObject<List<User>>(json);
+
+                return View("Index", users);
+            }
+
+            return Unauthorized();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ShowAllVersions()
+        {
+            var response = await _client.GetAsync(_config.GetValue<string>("Api:BaseApi") + "user/ShowAllVersions");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var users = JsonConvert.DeserializeObject<List<User>>(json);
+
+                return View(users);
+            }
+
+            return Unauthorized();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchUser(string searchInput, string role)
+        {
+
+            if (string.IsNullOrEmpty(searchInput))
+            {
+                return RedirectToAction("Index");
+            }
+           
+            var response = await _client.GetAsync(_config.GetValue<string>("Api:BaseApi") + $"user/SearchUser/{searchInput}/{role}");
+            if (response.IsSuccessStatusCode) {
+                var json = await response.Content.ReadAsStringAsync();
+                var users = JsonConvert.DeserializeObject<List<User>>(json);
+                return View("Index", users);
+            }
+
+            return View();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> History(string id)
+        {
+
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var response = await _client.GetAsync(_config.GetValue<string>("Api:BaseApi") + $"user/History/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var usersHistoy = JsonConvert.DeserializeObject<List<AuditLogModel>>(json);
+                return View(usersHistoy);
+            }
+
+
+            return View();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Download(string fileType)
+        {
+            if (!string.IsNullOrEmpty(fileType))
+            {
+                var response = await _client.GetAsync(_config.GetValue<string>("Api:BaseApi") + $"user/Download/{fileType}");
+            }
+            try
+            {
+                var response = await _client.GetAsync(_config.GetValue<string>("Api:BaseApi") + $"user/Download/{fileType}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsByteArrayAsync();
+                    string contentType = response.Content.Headers.ContentType.ToString();
+
+                    return File(content, contentType, $"users.{fileType.ToLower()}");
+                }
+                else
+                {
+                    return BadRequest("Unable to download the file.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
         }
     }
 }

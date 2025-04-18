@@ -3,6 +3,8 @@ using ImelAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
+using System.Data;
+using System.Security.Claims;
 using System.Text;
 
 namespace ImelAPI
@@ -19,20 +21,23 @@ namespace ImelAPI
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
 
             builder.Services.AddMemoryCache();
+            builder.Services.AddScoped<AuditLogService>();
+            builder.Services.AddScoped<Methods>();
             builder.Services.AddSingleton<LoginAttemptService>(); 
             builder.Services.AddControllers();
+            builder.Services.AddOpenApi();
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("MVCCors", policy =>
+                options.AddDefaultPolicy(policy =>
                 {
-                    policy.WithOrigins("https://localhost:7255")
+                    policy.WithOrigins("https://localhost:7255", "http://localhost:5173")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
+
             });
 
             builder.Services.AddAuthentication("Bearer")
@@ -47,7 +52,8 @@ namespace ImelAPI
                         ValidIssuer = builder.Configuration["Jwt:Issuer"],
                         ValidAudience = builder.Configuration["Jwt:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+                        RoleClaimType = ClaimTypes.Role
                     };
                 });
             builder.Services.AddAuthorization();
@@ -61,7 +67,8 @@ namespace ImelAPI
                 app.MapScalarApiReference();
             }
 
-            app.UseCors("MVCCors");
+            //app.UseCors("MVCCors");
+            app.UseCors();
 
             app.UseHttpsRedirection();
 

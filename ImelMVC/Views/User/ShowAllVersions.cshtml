@@ -2,8 +2,8 @@
 
 <div class="d-flex justify-content-between"><h2>Aktivni Korisnici</h2> <a asp-action="Add" asp-controller="User" class="btn btn-primary">Novi korisnik</a></div>
 <div class="d-flex my-3">
-    <a asp-action="ShowAllUsers" asp-controller="User" class="btn btn-primary mx-1">Aktivni korisnici</a> 
-    <a asp-action="ShowAllVersions" asp-controller="User" class="btn btn-primary mx-1">Prikazi sve verzije</a>
+    <a asp-action="ShowAllUsers" asp-controller="User" class="btn btn-primary mx-1">Aktivni korisnici</a>
+    <a asp-action="GetAllVersions" asp-controller="User" class="btn btn-primary mx-1">Prikazi sve verzije</a>
     <form asp-action="SearchUser" asp-controller="User" method="get" class="d-flex align-items-center mb-3">
         <input class="form-control mx-1" type="text" placeholder="Traži korisnika" name="searchInput" style="width: 200px;" />
 
@@ -26,38 +26,31 @@
             <th>Uloga</th>
             <th>Status</th>
             <th>Uredi</th>
+            <th>Version</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var user in Model)
         {
             <tr>
-                <td>@user.Name</td> 
-                <td>@user.Surname</td>   
-                <td>@user.Email</td>     
-                <td>@user.Role</td>    
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
                 <td>@user.Status</td>
-                <td><a class="btn btn-primary" asp-action="Details" asp-route-id="@user.Id">Uredi</a>
+                <td>@user.VersionNum</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@user.Id">Uredi</a>
                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
                             data-id="@user.Id" data-name="@user.Name">
                         Izbriši
                     </button>
+                    <a class="btn btn-primary" asp-route-id="@user.UserSpecificId" asp-action="History" asp-controller="User"><i class="bi bi-file-earmark-text-fill"></i></a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<div>
-    <form class="d-flex" asp-action="Download" asp-controller="User" method="get">
-        <button type="submit"  class="btn btn-primary">Download</button>
-        <select name="fileType" class="form-select mx-1" style="width: 200px;">
-            <option value="PDF">PDF</option>
-            <option value="xlsx">Excel</option>
-            <option value="CSV">CSV</option>
-        </select>
-    </form>
-</div>
 
 <div class="modal" tabindex="-1" id="deleteModal">
     <div class="modal-dialog">
@@ -76,8 +69,5 @@
         </div>
     </div>
 </div>
-
-
-
 
 

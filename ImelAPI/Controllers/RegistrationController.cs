@@ -27,6 +27,11 @@ namespace ImelAPI.Controllers
                 return BadRequest("Email and password are required.");
             }
 
+            if (_context.Users.Any(u => u.Email == request.Email))
+            {
+                return Conflict("A user with this email already exists.");
+            }
+
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
             User user = new User

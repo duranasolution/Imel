@@ -7,10 +7,8 @@
         </div>
         <div class="card-body">
             <form asp-action ="Update" asp-controller="User" method="post">
-                <div class="mb-3">
-                    <label class="form-label">ID</label>
-                    <input type="text" class="form-control" name="Id" value="@Model.Id"  readonly/>
-                </div>
+                <input name="Id" type="hidden" value="@Model.Id" />
+                <input name="UserSpecificId" type="hidden" value="@Model.UserSpecificId" />
                 <div class="mb-3">
                     <label class="form-label">Ime</label>
                     <input type="text" class="form-control" name="Name" value="@Model.Name" />
@@ -24,24 +22,27 @@
                     <input type="email" class="form-control" name="Email" value="@Model.Email" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Role</label>
-                    <input type="text" class="form-control" name="Role" value="@Model.Role" />
+                    <label class="form-label">Current Role</label>
+                    <span>@Model.Role</span>
+                    <div>
+                        <select name="Role">
+                            <option value="@Model.Role"  selected>Izaberi ulogu</option>
+                            <option value="@(Model.Role == "User" ? "Admin" : "User")">@(Model.Role == "User" ? "Admin" : "User")</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Status</label>
+                    <label class="form-label">Current Status</label>
                     <span>@Model.Status</span>
-                    <select name="Status">
-                        <option >Choose your State</option>
-                        <option value="@(Model.Status == "Active" ? "Inactive" : "Active")">@(Model.Status == "Active" ? "Inactive" : "Active")</option>
-                    </select>
+                    <div>
+                        <select name="Status">
+                            <option value="@Model.Status"  selected>Izaberi status</option>
+                            <option value="@(Model.Status == "Active" ? "Inactive" : "Active")">@(Model.Status == "Active" ? "Inactive" : "Active")</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Version</label>
-                    <input type="text" class="form-control" name="VersionNum" value="@Model.VersionNum" />
-                </div>
-                <input type="hidden" name="Password" value="@Model.Password" />
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Spremi</button>
                 </div>
             </form>
         </div>

@@ -57,17 +57,19 @@ namespace ImelAPI.Controllers
             }
                 _loginAttemptService.ResetFailedAttempts(request.Email);
 
-            var token = GenerateJwtToken(user.Email, user.Role, user.Surname, user.Name);
+            var token = GenerateJwtToken(user.Email, user.Role, user.Surname, user.Name, user.UserSpecificId);
             return Ok(new { token });
         }
 
-        private string GenerateJwtToken(string email, string role, string surname, string name)
+        private string GenerateJwtToken(string email, string role, string surname, string name, string userSpecificId)
         {
             var claims = new[] {
                 new Claim("email", email),
                 new Claim("role", role),
                 new Claim("surname", surname),
-                new Claim("name", name)
+                new Claim("name", name),
+                new Claim("userSpecificId", userSpecificId),
+                new Claim(ClaimTypes.Role, role)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));

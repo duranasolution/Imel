@@ -2,6 +2,7 @@
 using ImelMVC.Models;
 using ImelMVC.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
@@ -33,7 +34,7 @@ namespace ImelMVC.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDto loginData)
+        public async Task<IActionResult> Login(LoginRequest loginData)
         {
             try
             {

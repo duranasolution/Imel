@@ -1,0 +1,26 @@
+﻿@model List<AuditLogModel>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id Korsinika</th>
+            <th>Izvrsitelj Promjene</th>
+            <th>Izvrsena promjena</th>
+            <th>Tabela</th>
+            <th>Vrijeme</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in Model)
+        {
+            <tr>
+                <td>@data.UserId</td>
+                <td>@data.PerformedBy</td>
+                <td>@data.Action</td>
+                <td>@data.TableName</td>
+                <td>@data.TimeStamp</td>
+            </tr>
+        }
+    </tbody>
+</table>

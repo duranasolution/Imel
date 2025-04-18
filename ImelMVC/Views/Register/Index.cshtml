@@ -40,6 +40,14 @@
     <button type="submit" class="btn btn-primary mt-3">Registruj se</button>
 </form>
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Message"]
+    </div>
+}
+
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

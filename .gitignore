@@ -1,13 +1,91 @@
-﻿
-# Ignoriši Visual Studio fajlove
+﻿########################################
+# Visual Studio / .NET / ASP.NET Core #
+########################################
 .vs/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
 
-# Ignoriši build foldere
+# Build output
 bin/
 obj/
-
-# Ignoriši ostalo
+[Bb]uild/
+[Ll]og/
 *.log
-*.DS_Store
+
+# Paket menadžeri
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# User secrets
+**/secrets.json
+
+# Publish output
+wwwroot/dist/
+wwwroot/node_modules/
+
+# Entity Framework
+Migrations/
+
+# Test rezultati
+TestResults/
+*.coverage
+*.coveragexml
+
+#################
+# React / Vite #
+#################
+# Node modules
+node_modules/
+
+# Build
+dist/
+build/
+
+# Cache
+.vite/
+.cache/
+*.tsbuildinfo
+
+# Logovi
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS fajlovi
+.DS_Store
+Thumbs.db
+
+#########################
+# Environment fajlovi  #
+#########################
+.env
+.env.*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+#####################
+# IDE-specifični   #
+#####################
+# VS Code
+.vscode/
+.history/
+
+# WebStorm / IntelliJ
+.idea/
+
+####################
+# Git backup files #
+####################
+*.orig

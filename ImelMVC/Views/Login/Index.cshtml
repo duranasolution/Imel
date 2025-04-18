@@ -1,25 +1,54 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model User
 
 
 
 
 @if (Context.Session.GetString("name") == null)
 {
-    <div class="container-fluid d-flex justify-content-center align-items-center h-100">
-        <form asp-action="Login" asp-controller="Login" method="post" class="h-100">
-            <div class="mb-3">
-                <input type="email" name="email" value="" placeholder="Email" required/>
+    <section class="login-section">
+        <div class="main-wrapper">
+            <div class="first-div">
+                <form asp-action="Login" asp-controller="login" method="post">
+                    <div>
+                        <h1>Please login</h1>
+                    </div>
+                    <div class="input-div">
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                        <input type="password" id="password" name="password" placeholder="Password" required>
+                    </div>
+                    <a href="#">Forgot password?</a>
+                    <div>
+                        <button class="login-btn" type="submit">Login</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <input type="password" name="password" value="" placeholder="Password" required />
+            <div class="second-div">
+                <form asp-action="Register" asp-controller="Register" method="post">
+                    <div>
+                        <h1>Register</h1>
+                    </div>
+                    <div class="input-div">
+                        <input asp-for="Email" type="email" id="email" name="email" placeholder="Email" required>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <input asp-for="Name" type="text" id="name" name="Name" placeholder="Name" required>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <input asp-for="Surname" type="text" id="surname" name="Surname" placeholder="Surname" required>
+                        <span asp-validation-for="Surname" class="text-danger"></span>
+                        <input asp-for="Password" type="password" id="password" name="Password" placeholder="Password" required>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <input type="password" id="password" name="ConfirmPassword" placeholder="Confirm Password" required>
+                    </div>
+                    <div>
+                        <button class="login-btn" type="submit">Register</button>
+                    </div>
+
+                </form>
             </div>
-            <div>
-                <button class="btn btn-primary">Login</button>
+            <div class="overlay-div">
+                <button class="move-button">Register</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </section>
     @if (!ViewData.ModelState.IsValid)
     {
         <div class="alert alert-danger">
